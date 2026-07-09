@@ -1,0 +1,17 @@
+{
+  "git.defaultBranchName": "AJ",
+  "git.branchProtection": [],
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/backend/.next": true,
+    "**/frontend/node_modules": true,
+    "**/frontend/dist": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/dist": true
+  }
+}

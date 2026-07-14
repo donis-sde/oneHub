@@ -6,6 +6,10 @@ import { motion } from "framer-motion"
 import { toast } from "sonner"
 
 import { useAuth } from "@/contexts/auth-context"
+import {
+  PLATFORM_DEMO_PASSWORD,
+  PLATFORM_USERS,
+} from "@/config/platform-users"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -23,6 +27,13 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { WatiLogo } from "@/components/wati-logo"
 
 const loginSchema = z.object({
@@ -74,7 +85,32 @@ export function LoginPage() {
               </CardDescription>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-4">
+            <div className="grid gap-2">
+              <FormLabel>Demo platform user</FormLabel>
+              <Select
+                onValueChange={(email) => {
+                  form.setValue("email", email)
+                  form.setValue("password", PLATFORM_DEMO_PASSWORD)
+                }}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Pick a @clare.ai demo user" />
+                </SelectTrigger>
+                <SelectContent>
+                  {PLATFORM_USERS.map((user) => (
+                    <SelectItem key={user.userId} value={user.email}>
+                      {user.userId} — {user.name} ({user.role})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-muted-foreground text-xs">
+                Password for all demo users:{" "}
+                <code className="text-foreground">{PLATFORM_DEMO_PASSWORD}</code>
+              </p>
+            </div>
+
             <Form {...form}>
               <form onSubmit={onSubmit} className="space-y-4">
                 <FormField
@@ -87,7 +123,7 @@ export function LoginPage() {
                         <Input
                           type="email"
                           autoComplete="email"
-                          placeholder="admin@example.com"
+                          placeholder="ava.chen@clare.ai"
                           {...field}
                         />
                       </FormControl>

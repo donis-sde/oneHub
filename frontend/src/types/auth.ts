@@ -8,6 +8,9 @@ export type UserRole =
 export interface AdminUser {
   email: string
   role: UserRole | string
+  userId?: string
+  name?: string
+  _id?: string
 }
 
 export interface SigninResponse {

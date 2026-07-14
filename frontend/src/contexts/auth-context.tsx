@@ -4,7 +4,18 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 import { authService } from "@/services/auth.service"
 import { activityLog } from "@/lib/activity-log"
+import { findPlatformUserByEmail } from "@/config/platform-users"
 import type { AdminUser } from "@/types/auth"
+
+function enrichUser(user: AdminUser | null): AdminUser | null {
+  if (!user) return null
+  const platform = findPlatformUserByEmail(user.email)
+  return {
+    ...user,
+    userId: user.userId ?? platform?.userId,
+    name: user.name ?? platform?.name,
+  }
+}
 
 interface AuthContextValue {
   user: AdminUser | null
@@ -28,7 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     staleTime: 60_000,
   })
 
-  const user = data?.user ?? null
+  const user = enrichUser(data?.user ?? null)
 
   React.useEffect(() => {
     const handleUnauthorized = () => {
@@ -52,6 +63,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         })
         throw new Error(response.error ?? "Sign in failed")
       }
+      if (response.metadata?.adminUser) {
+        queryClient.setQueryData(["auth", "me"], {
+          user: enrichUser(response.metadata.adminUser),
+        })
+      }
       activityLog.record({
         type: "login",
         message: "Signed in",
@@ -59,7 +75,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       })
       await refetch()
     },
-    [refetch],
+    [queryClient, refetch],
   )
 
   const signout = React.useCallback(async () => {

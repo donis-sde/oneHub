@@ -25,16 +25,18 @@ function NavLinkButton({
   label,
   isActive,
   tooltip,
+  onNavigate,
 }: {
   to: string
   icon: React.ComponentType<{ className?: string }>
   label: string
   isActive: boolean
   tooltip?: string
+  onNavigate?: () => void
 }) {
   return (
     <SidebarMenuButton
-      render={<Link to={to} />}
+      render={<Link to={to} onClick={onNavigate} />}
       tooltip={tooltip ?? label}
       isActive={isActive}
     >
@@ -45,9 +47,17 @@ function NavLinkButton({
 }
 
 export function AppNavigation() {
-  const { state } = useSidebar()
+  const { state, isMobile, setOpen, setOpenMobile } = useSidebar()
   const location = useLocation()
   const isCollapsed = state === "collapsed"
+
+  const closeSidebar = () => {
+    if (isMobile) {
+      setOpenMobile(false)
+    } else {
+      setOpen(false)
+    }
+  }
 
   const isActive = (path: string) =>
     path === "/" ? location.pathname === "/" : location.pathname.startsWith(path)
@@ -66,6 +76,7 @@ export function AppNavigation() {
                 icon={item.icon}
                 label={item.title}
                 isActive={isActive(item.path)}
+                onNavigate={closeSidebar}
               />
             </SidebarMenuItem>
           ))}
@@ -87,6 +98,7 @@ export function AppNavigation() {
                       icon={item.icon}
                       label={item.title}
                       isActive={isActive(item.path)}
+                      onNavigate={closeSidebar}
                     />
                   </SidebarMenuItem>
                 ))}
@@ -120,7 +132,7 @@ export function AppNavigation() {
                     {group.items.map((item) => (
                       <SidebarMenuSubItem key={item.path}>
                         <SidebarMenuSubButton
-                          render={<Link to={item.path} />}
+                          render={<Link to={item.path} onClick={closeSidebar} />}
                           isActive={isActive(item.path)}
                         >
                           <item.icon />

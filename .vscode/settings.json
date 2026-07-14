@@ -3,6 +3,7 @@
   "git.branchProtection": [],
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
+  "git.repositoryScanMaxDepth": 2,
   "files.exclude": {
     "**/.DS_Store": true,
     "**/backend/.next": true,

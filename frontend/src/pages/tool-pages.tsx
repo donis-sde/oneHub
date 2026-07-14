@@ -27,8 +27,25 @@ import { featureAccessService } from "@/services/feature-access.service"
 import { prmGatewayService } from "@/services/prm-gateway.service"
 import { useQuery } from "@tanstack/react-query"
 import { JsonViewer } from "@/components/shared/json-viewer"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { AssignWabaUserForm } from "@/components/shared/assign-waba-user-form"
+import { DUMMY_ACCESS_TO_WABA_USERS, PLATFORM_DEMO_PASSWORD } from "@/config/platform-users"
 import type { BackofficeLogKey } from "@/services/tools.service"
 
 function ToolPageShell({
@@ -60,21 +77,93 @@ export function AccessToWabaPage() {
           <TabsTrigger value="assign">Assign User</TabsTrigger>
         </TabsList>
         <TabsContent value="get" className="mt-4">
-          <GetUsersPanel fetcher={accessToWabaService.getUsers} />
+          <AccessToWabaUsersPanel />
         </TabsContent>
         <TabsContent value="assign" className="mt-4">
-          <ApiToolForm
-            title="Assign User"
-            schema={z.object({ wabaId: z.string().min(1), userId: z.string().min(1) })}
-            fields={[
-              { name: "wabaId", label: "WABA ID" },
-              { name: "userId", label: "User ID" },
-            ]}
-            onSubmit={accessToWabaService.assignUser}
-          />
+          <AssignWabaUserForm />
         </TabsContent>
       </Tabs>
     </ToolPageShell>
+  )
+}
+
+function AccessToWabaUsersPanel() {
+  const query = useQuery({
+    queryKey: ["access-waba-users"],
+    queryFn: accessToWabaService.getUsers,
+    retry: false,
+  })
+
+  return (
+    <div className="space-y-6">
+      <Card className="surface-card">
+        <CardHeader>
+          <CardTitle>Assigned Users</CardTitle>
+          <CardDescription>
+            {DUMMY_ACCESS_TO_WABA_USERS.length} platform users tagged under Get
+            Users (@clare.ai) — password{" "}
+            <code className="text-foreground">{PLATFORM_DEMO_PASSWORD}</code>
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-hidden rounded-lg border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>User ID</TableHead>
+                  <TableHead>Role</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Business ID</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {DUMMY_ACCESS_TO_WABA_USERS.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell className="font-medium">{user.name}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell className="font-mono text-xs">{user.id}</TableCell>
+                    <TableCell>
+                      <Badge variant="secondary">{user.role}</Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={user.status === "active" ? "default" : "outline"}
+                      >
+                        {user.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="font-mono text-xs">{user.businessId}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="surface-card">
+        <CardHeader>
+          <CardTitle>API Response</CardTitle>
+          <CardDescription>
+            Live response from `/api/accessToWABA/getUsers` (when backend is available)
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {query.isLoading ? (
+            <p className="text-muted-foreground text-sm">Loading...</p>
+          ) : query.isError ? (
+            <p className="text-muted-foreground text-sm">
+              Could not load live API users. Dummy @clare.ai users above are still
+              available.
+            </p>
+          ) : (
+            <JsonViewer data={query.data} />
+          )}
+        </CardContent>
+      </Card>
+    </div>
   )
 }
 

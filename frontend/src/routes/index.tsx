@@ -9,6 +9,7 @@ import { HomeDashboardPage } from "@/pages/home-dashboard"
 import { ProfilePage, SettingsPage } from "@/pages/settings-pages"
 import { CollectionBrowserPage } from "@/pages/collection-browser"
 import { ActivityLogPage } from "@/pages/activity-log"
+import { PlatformUsersPage } from "@/pages/platform-users"
 import {
   AccessToWabaPage,
   AffiliateDashboardPage,
@@ -93,13 +94,7 @@ export function AppRoutes() {
                 />
                 <Route
                   path="data/admin-users"
-                  element={
-                    <CollectionBrowserPage
-                      title="Admin Users"
-                      database="wati-admin"
-                      collection="AdminUsers"
-                    />
-                  }
+                  element={<PlatformUsersPage />}
                 />
                 <Route path="data/cross-collection" element={<CrossCollectionPage />} />
                 <Route path="admin/feature-access" element={<FeatureAccessPage />} />

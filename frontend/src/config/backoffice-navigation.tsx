@@ -5,12 +5,12 @@ import {
   ArchiveIcon,
   BanIcon,
   BarChart3Icon,
-  Building2Icon,
   CalculatorIcon,
   CreditCardIcon,
   DatabaseIcon,
   EraserIcon,
   FileTextIcon,
+  GaugeIcon,
   KeyRoundIcon,
   LinkIcon,
   PhoneIcon,
@@ -51,14 +51,9 @@ export const backofficeNavigation: BackofficeNavigation = {
       items: [
         { title: "Access to WABA", url: "#access-to-waba", icon: KeyRoundIcon },
         {
-          title: "Get Phone from WABA",
-          url: "#get-phone-from-waba",
+          title: "BMID/Phone number from WABA",
+          url: "#bmid-phone-from-waba",
           icon: PhoneIcon,
-        },
-        {
-          title: "Get BMID from WABA",
-          url: "#get-bmid-from-waba",
-          icon: Building2Icon,
         },
         {
           title: "Revoke Credit Line",
@@ -105,6 +100,7 @@ export const backofficeNavigation: BackofficeNavigation = {
           icon: BanIcon,
         },
         { title: "Onboarding fix", url: "#onboarding-fix", icon: WrenchIcon },
+        { title: "Tenants MPS", url: "#tenants-mps", icon: GaugeIcon },
       ],
     },
     {

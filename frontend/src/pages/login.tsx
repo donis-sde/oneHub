@@ -27,6 +27,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
@@ -87,14 +88,14 @@ export function LoginPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-2">
-              <FormLabel>Demo platform user</FormLabel>
+              <Label htmlFor="demo-platform-user">Demo platform user</Label>
               <Select
                 onValueChange={(email) => {
                   form.setValue("email", email)
                   form.setValue("password", PLATFORM_DEMO_PASSWORD)
                 }}
               >
-                <SelectTrigger className="w-full">
+                <SelectTrigger id="demo-platform-user" className="w-full">
                   <SelectValue placeholder="Pick a @clare.ai demo user" />
                 </SelectTrigger>
                 <SelectContent>

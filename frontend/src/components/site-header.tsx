@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { HomeIcon } from "lucide-react"
+import { HomeIcon, SettingsIcon, UserIcon } from "lucide-react"
 
 import {
   Breadcrumb,
@@ -49,10 +49,33 @@ export function SiteHeader({
             size="icon"
             className="size-8 shrink-0"
             aria-label="Go to home"
+            title="Home"
             render={<Link to="/" />}
           >
             <HomeIcon className="size-4" />
             <span className="sr-only">Home</span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-8 shrink-0"
+            aria-label="Profile"
+            title="Profile"
+            render={<Link to="/profile" />}
+          >
+            <UserIcon className="size-4" />
+            <span className="sr-only">Profile</span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-8 shrink-0"
+            aria-label="Settings"
+            title="Settings"
+            render={<Link to="/settings" />}
+          >
+            <SettingsIcon className="size-4" />
+            <span className="sr-only">Settings</span>
           </Button>
           <ThemeToggle />
         </div>

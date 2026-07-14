@@ -6,8 +6,10 @@ import {
   ArchiveIcon,
   BanIcon,
   BarChart3Icon,
+  BotIcon,
   Building2Icon,
   CalculatorIcon,
+  CalendarClockIcon,
   CreditCardIcon,
   DatabaseIcon,
   EraserIcon,
@@ -19,8 +21,10 @@ import {
   ServerIcon,
   SettingsIcon,
   ShieldIcon,
+  SparklesIcon,
   TerminalIcon,
   UserPlusIcon,
+  UserRoundCogIcon,
   UserRoundXIcon,
   UsersIcon,
   WrenchIcon,
@@ -56,6 +60,33 @@ export const mainNavGroups: NavGroup[] = [
       { title: "Verify OTP", path: "/tools/waba/verify-code", icon: PhoneIcon },
       { title: "Coex Sync", path: "/tools/waba/coex-sync", icon: RefreshCwIcon },
       { title: "Local Storage", path: "/tools/waba/local-storage", icon: DatabaseIcon },
+    ],
+  },
+  {
+    title: "Astra Tools",
+    icon: BotIcon,
+    defaultOpen: true,
+    items: [
+      {
+        title: "Create Admin User",
+        path: "/tools/astra/create-admin-user",
+        icon: UserPlusIcon,
+      },
+      {
+        title: "Extend Trial",
+        path: "/tools/astra/extend-trial",
+        icon: CalendarClockIcon,
+      },
+      {
+        title: "Change Ownership",
+        path: "/tools/astra/change-ownership",
+        icon: UserRoundCogIcon,
+      },
+      {
+        title: "Get AI Usage",
+        path: "/tools/astra/get-ai-usage",
+        icon: SparklesIcon,
+      },
     ],
   },
   {
@@ -108,9 +139,13 @@ export const mainNavGroups: NavGroup[] = [
 ]
 
 export const topLevelNav: NavItem[] = [
-  { title: "Dashboard", path: "/", icon: BarChart3Icon },
-  { title: "Settings", path: "/settings", icon: SettingsIcon },
+  { title: "Home", path: "/", icon: BarChart3Icon },
+]
+
+/** Shown in the site header (next to Home), not in the sidebar */
+export const headerNav: NavItem[] = [
   { title: "Profile", path: "/profile", icon: UsersIcon },
+  { title: "Settings", path: "/settings", icon: SettingsIcon },
 ]
 
 export const databaseCollections = {

@@ -5,7 +5,7 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { CommandPalette } from "@/components/shared/command-palette"
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
-import { mainNavGroups, topLevelNav } from "@/config/navigation"
+import { mainNavGroups, topLevelNav, headerNav } from "@/config/navigation"
 import { useAuth } from "@/contexts/auth-context"
 import { activityLog } from "@/lib/activity-log"
 
@@ -13,7 +13,11 @@ function usePageMeta() {
   const location = useLocation()
 
   return React.useMemo(() => {
-    const all = [...topLevelNav, ...mainNavGroups.flatMap((g) => g.items)]
+    const all = [
+      ...topLevelNav,
+      ...headerNav,
+      ...mainNavGroups.flatMap((g) => g.items),
+    ]
     const match = all.find((item) =>
       item.path === "/"
         ? location.pathname === "/"

@@ -17,7 +17,8 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { mainNavGroups, topLevelNav } from "@/config/navigation"
+import { mainNavGroups } from "@/config/navigation"
+import { SidebarToolsSearch } from "@/components/sidebar-tools-search"
 
 function NavLinkButton({
   to,
@@ -64,24 +65,7 @@ export function AppNavigation() {
 
   return (
     <>
-      <SidebarGroup>
-        <SidebarGroupLabel className="text-sidebar-foreground/60 px-2 text-[0.65rem] font-semibold tracking-widest uppercase">
-          Main
-        </SidebarGroupLabel>
-        <SidebarMenu>
-          {topLevelNav.map((item) => (
-            <SidebarMenuItem key={item.path}>
-              <NavLinkButton
-                to={item.path}
-                icon={item.icon}
-                label={item.title}
-                isActive={isActive(item.path)}
-                onNavigate={closeSidebar}
-              />
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
-      </SidebarGroup>
+      <SidebarToolsSearch onNavigate={closeSidebar} />
 
       {mainNavGroups.map((group) => {
         const GroupIcon = group.icon

@@ -1,18 +1,20 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { HttpMethod } from '@/enums/HttpMethod';
 import { getServerDiContainer } from '@/global/serverDiContainer';
 import { createLogContextMiddleware } from '@/middlewares/createLogContextMiddleware';
-import { createRbacMiddleware } from '@/middlewares/createRbacMiddleware';
 import { EmptyPromiseFunction } from '@/types/EmptyPromiseFunction';
 import { BackofficePortalLoggingMetadata } from '@/types/LogContext';
 import { AdminUserDto } from '@/types/User';
 import { extractUserFromHeaders } from '@/utils/extractUser';
 import { middlewareFlattener } from '@/utils/middlewareFlattener';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { BackofficeFeature } from '@/enums/BackofficeFeature';
 
 export type GetMeResponse = { user: AdminUserDto | null };
 
+/**
+ * Soft session endpoint: returns the current user when a valid auth cookie is
+ * present, otherwise `{ user: null }` with 200. Do not require RBAC here —
+ * missing cookies used to throw from createRbacMiddleware and surface as 500.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<GetMeResponse>,
@@ -21,15 +23,6 @@ export default async function handler(
   try {
     await middlewareFlattener<GetMeResponse>([
       createLogContextMiddleware(),
-      createRbacMiddleware(
-        [
-          {
-            httpMethod: HttpMethod.GET,
-            roles: null,
-          },
-        ],
-        BackofficeFeature.NO_FEATURE,
-      ),
       async (
         req: NextApiRequest,
         res: NextApiResponse<GetMeResponse>,
@@ -45,13 +38,18 @@ export default async function handler(
           headers: req.headers,
           loggerMetadata: loggerMetadata,
         });
-        const user = extractUserFromHeaders(
-          req.headers,
-          loggerMetadata,
-          logger,
-        );
 
-        res.status(200).json({ user });
+        try {
+          const user = extractUserFromHeaders(
+            req.headers,
+            loggerMetadata,
+            logger,
+          );
+          res.status(200).json({ user });
+        } catch {
+          // Invalid / expired cookie — treat as signed out
+          res.status(200).json({ user: null });
+        }
       },
     ])(req, res);
   } catch (err) {

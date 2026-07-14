@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Command } from "cmdk"
 import { SearchIcon } from "lucide-react"
 
-import { mainNavGroups, topLevelNav } from "@/config/navigation"
+import { mainNavGroups, topLevelNav, headerNav } from "@/config/navigation"
 import {
   Dialog,
   DialogContent,
@@ -51,7 +51,7 @@ export function CommandPalette() {
           <Command.List className="max-h-[360px] overflow-y-auto p-2">
             <Command.Empty>No results found.</Command.Empty>
             <Command.Group heading="Main">
-              {topLevelNav.map((item) => (
+              {[...topLevelNav, ...headerNav].map((item) => (
                 <Command.Item
                   key={item.path}
                   value={item.title}

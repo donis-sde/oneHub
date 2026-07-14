@@ -9,6 +9,12 @@ import { HomeDashboardPage } from "@/pages/home-dashboard"
 import { ProfilePage, SettingsPage } from "@/pages/settings-pages"
 import { CollectionBrowserPage } from "@/pages/collection-browser"
 import { ActivityLogPage } from "@/pages/activity-log"
+import {
+  AstraChangeOwnershipPage,
+  AstraCreateAdminUserPage,
+  AstraExtendTrialPage,
+  AstraGetAiUsagePage,
+} from "@/pages/astra-tools"
 import { PlatformUsersPage } from "@/pages/platform-users"
 import {
   AccessToWabaPage,
@@ -110,6 +116,22 @@ export function AppRoutes() {
                 <Route path="tools/waba/verify-code" element={<WabaVerifyCodePage />} />
                 <Route path="tools/waba/coex-sync" element={<WabaCoexSyncPage />} />
                 <Route path="tools/waba/local-storage" element={<WabaLocalStoragePage />} />
+                <Route
+                  path="tools/astra/create-admin-user"
+                  element={<AstraCreateAdminUserPage />}
+                />
+                <Route
+                  path="tools/astra/extend-trial"
+                  element={<AstraExtendTrialPage />}
+                />
+                <Route
+                  path="tools/astra/change-ownership"
+                  element={<AstraChangeOwnershipPage />}
+                />
+                <Route
+                  path="tools/astra/get-ai-usage"
+                  element={<AstraGetAiUsagePage />}
+                />
                 <Route path="tools/client-status" element={<ClientStatusPage />} />
                 <Route path="tools/create-ext-admin" element={<CreateExtAdminPage />} />
                 <Route path="tools/create-ext-admin-eu" element={<CreateExtAdminEuPage />} />

@@ -65,6 +65,7 @@ export function ActivityLogPage() {
         !search ||
         entry.message.toLowerCase().includes(search.toLowerCase()) ||
         entry.user.toLowerCase().includes(search.toLowerCase()) ||
+        (entry.ip?.toLowerCase().includes(search.toLowerCase()) ?? false) ||
         (entry.detail?.toLowerCase().includes(search.toLowerCase()) ?? false)
       return matchesType && matchesSearch
     })
@@ -78,7 +79,8 @@ export function ActivityLogPage() {
           <h1 className="text-2xl font-semibold">Activity Log</h1>
         </div>
         <p className="text-muted-foreground text-sm">
-          User sign-ins, page visits, and actions performed in the dashboard, with timestamps.
+          User sign-ins, page visits, and actions performed in the dashboard,
+          with timestamps and client IP addresses.
         </p>
       </div>
 
@@ -133,6 +135,7 @@ export function ActivityLogPage() {
                 <TableHead className="w-32">Type</TableHead>
                 <TableHead>Activity</TableHead>
                 <TableHead>User</TableHead>
+                <TableHead>IP Address</TableHead>
                 <TableHead className="text-right">Time</TableHead>
               </TableRow>
             </TableHeader>
@@ -170,6 +173,7 @@ function ActivityRow({ entry }: { entry: ActivityEntry }) {
         </div>
       </TableCell>
       <TableCell className="text-muted-foreground">{entry.user}</TableCell>
+      <TableCell className="font-mono text-xs">{entry.ip || "—"}</TableCell>
       <TableCell className="text-right">
         <div className="flex flex-col items-end">
           <span title={format(date, "PPpp")}>

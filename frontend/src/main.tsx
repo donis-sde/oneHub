@@ -6,6 +6,9 @@ import App from "./App.tsx"
 import { ThemeProvider } from "@/components/theme-provider.tsx"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Toaster } from "@/components/ui/sonner"
+import { prefetchClientIp } from "@/lib/activity-log"
+
+prefetchClientIp()
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

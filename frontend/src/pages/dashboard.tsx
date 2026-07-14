@@ -8,6 +8,7 @@ import { SectionCards } from "@/components/section-cards"
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { resolveSampleRoute } from "@/config/sample-routes"
+import { resolveToolPage } from "@/config/tool-pages"
 import { useHashRoute } from "@/hooks/use-hash-route"
 
 import data from "@/app/dashboard/data.json"
@@ -15,6 +16,7 @@ import data from "@/app/dashboard/data.json"
 export function DashboardPage() {
   const hash = useHashRoute()
   const route = resolveSampleRoute(hash)
+  const ToolPage = resolveToolPage(hash)
 
   return (
     <SidebarProvider
@@ -31,7 +33,9 @@ export function DashboardPage() {
           title={route ? route.title : "Documents"}
           section={route?.section}
         />
-        {route ? (
+        {ToolPage ? (
+          <ToolPage />
+        ) : route ? (
           <SampleWindow route={route} />
         ) : (
           <div className="flex flex-1 flex-col">

@@ -1,5 +1,7 @@
 import { AstraDailyAiUsageReportPage } from "@/components/astra-daily-ai-usage-report"
 import { AstraDatabasesPage as AstraDatabasesBrowser } from "@/components/astra-databases-page"
+import { AstraAccountDetailsForm } from "@/components/shared/astra-account-details-form"
+import { AstraExtendTrialForm } from "@/components/shared/astra-extend-trial-form"
 import { CreateAstraAdminUserForm } from "@/components/shared/create-astra-admin-user-form"
 import {
   Card,
@@ -56,10 +58,15 @@ export function AstraCreateAdminUserPage() {
 
 export function AstraExtendTrialPage() {
   return (
-    <AstraToolPlaceholderPage
-      title="Extend Trial"
-      description="Extend a customer's Astra trial end date"
-    />
+    <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
+      <div>
+        <h1 className="text-2xl font-semibold">Extend Trial</h1>
+        <p className="text-muted-foreground text-sm">
+          Look up the current Astra trial end date by tenant ID
+        </p>
+      </div>
+      <AstraExtendTrialForm />
+    </div>
   )
 }
 
@@ -69,6 +76,20 @@ export function AstraChangeOwnershipPage() {
       title="Change Ownership"
       description="Transfer Astra tenant ownership to another user"
     />
+  )
+}
+
+export function AstraAccountDetailsPage() {
+  return (
+    <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
+      <div>
+        <h1 className="text-2xl font-semibold">Astra Account Details</h1>
+        <p className="text-muted-foreground text-sm">
+          Look up client, owner, and billing details by Astra Tenant ID
+        </p>
+      </div>
+      <AstraAccountDetailsForm />
+    </div>
   )
 }
 

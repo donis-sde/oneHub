@@ -14,6 +14,7 @@ import {
   DatabaseIcon,
   EraserIcon,
   FileTextIcon,
+  IdCardIcon,
   KeyRoundIcon,
   LinkIcon,
   PhoneIcon,
@@ -81,6 +82,11 @@ export const mainNavGroups: NavGroup[] = [
         title: "Change Ownership",
         path: "/tools/astra/change-ownership",
         icon: UserRoundCogIcon,
+      },
+      {
+        title: "Astra Account Details",
+        path: "/tools/astra/account-details",
+        icon: IdCardIcon,
       },
       {
         title: "Get AI Usage",

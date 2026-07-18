@@ -10,6 +10,7 @@ import { ProfilePage, SettingsPage } from "@/pages/settings-pages"
 import { CollectionBrowserPage } from "@/pages/collection-browser"
 import { ActivityLogPage } from "@/pages/activity-log"
 import {
+  AstraAccountDetailsPage,
   AstraChangeOwnershipPage,
   AstraCreateAdminUserPage,
   AstraDatabasesPage,
@@ -128,6 +129,10 @@ export function AppRoutes() {
                 <Route
                   path="tools/astra/change-ownership"
                   element={<AstraChangeOwnershipPage />}
+                />
+                <Route
+                  path="tools/astra/account-details"
+                  element={<AstraAccountDetailsPage />}
                 />
                 <Route
                   path="tools/astra/get-ai-usage"

@@ -121,6 +121,62 @@ export type AstraDailyAiUsageReport = {
   rows: AstraDailyAiUsageRow[]
 }
 
+export type AstraTrialLookupResponse = {
+  tenantId: string
+  database: string
+  found: boolean
+  isTrial: boolean
+  trialExtendable: boolean
+  message: string
+  subscription: null | {
+    id: string
+    uuid: string
+    plan: number
+    planLabel: string
+    status: number
+    statusLabel: string
+    currentPeriodStart: string | null
+    currentPeriodEnd: string | null
+    trialEndAt: string | null
+    trialEndAtHkt: string | null
+    cancelAt: string | null
+    createdAt: string | null
+    updatedAt: string | null
+    platform: number | null
+  }
+  history: Array<{
+    uuid: string
+    plan: number
+    planLabel: string
+    status: number
+    statusLabel: string
+    currentPeriodEnd: string | null
+    updatedAt: string | null
+  }>
+}
+
+export type AstraAccountDetailsResponse = {
+  tenantId: string
+  found: boolean
+  message: string
+  databases: {
+    dify: string
+    account: string
+  }
+  clientName: string | null
+  ownerEmail: string | null
+  ownerName: string | null
+  currentBillingPlan: string | null
+  billingRenewDate: string | null
+  billingRenewDateHkt: string | null
+  planPrice: string | null
+  planPriceMinor: number | null
+  currency: string | null
+  billingSchedule: string | null
+  subscriptionStatus: string | null
+  subscriptionUuid: string | null
+}
+
 export const astraService = {
   getAiUsage: (tenantId: string) =>
     apiGet<AstraAiUsageResponse>("/api/astra/aiUsage", { tenantId }),
@@ -130,6 +186,14 @@ export const astraService = {
     toDate: string
     tenantId: string
   }) => apiGet<AstraDailyAiUsageReport>("/api/astra/dailyAiUsage", params),
+
+  lookupTrial: (tenantId: string) =>
+    apiGet<AstraTrialLookupResponse>("/api/astra/trial", { tenantId }),
+
+  getAccountDetails: (tenantId: string) =>
+    apiGet<AstraAccountDetailsResponse>("/api/astra/accountDetails", {
+      tenantId,
+    }),
 
   listDatabases: () =>
     apiGet<AstraDatabaseStatusResponse>("/api/astra/databases"),

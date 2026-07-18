@@ -1,3 +1,6 @@
+import { AstraDailyAiUsageReportPage } from "@/components/astra-daily-ai-usage-report"
+import { AstraDatabasesPage as AstraDatabasesBrowser } from "@/components/astra-databases-page"
+import { CreateAstraAdminUserForm } from "@/components/shared/create-astra-admin-user-form"
 import {
   Card,
   CardContent,
@@ -5,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { CreateAstraAdminUserForm } from "@/components/shared/create-astra-admin-user-form"
 
 function AstraToolPlaceholderPage({
   title,
@@ -71,10 +73,9 @@ export function AstraChangeOwnershipPage() {
 }
 
 export function AstraGetAiUsagePage() {
-  return (
-    <AstraToolPlaceholderPage
-      title="Get AI Usage"
-      description="Look up Astra AI usage for a tenant"
-    />
-  )
+  return <AstraDailyAiUsageReportPage />
+}
+
+export function AstraDatabasesPage() {
+  return <AstraDatabasesBrowser />
 }

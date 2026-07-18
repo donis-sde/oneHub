@@ -12,6 +12,7 @@ import { ActivityLogPage } from "@/pages/activity-log"
 import {
   AstraChangeOwnershipPage,
   AstraCreateAdminUserPage,
+  AstraDatabasesPage,
   AstraExtendTrialPage,
   AstraGetAiUsagePage,
 } from "@/pages/astra-tools"
@@ -131,6 +132,10 @@ export function AppRoutes() {
                 <Route
                   path="tools/astra/get-ai-usage"
                   element={<AstraGetAiUsagePage />}
+                />
+                <Route
+                  path="tools/astra/databases"
+                  element={<AstraDatabasesPage />}
                 />
                 <Route path="tools/client-status" element={<ClientStatusPage />} />
                 <Route path="tools/create-ext-admin" element={<CreateExtAdminPage />} />

@@ -87,6 +87,11 @@ export const mainNavGroups: NavGroup[] = [
         path: "/tools/astra/get-ai-usage",
         icon: SparklesIcon,
       },
+      {
+        title: "Databases",
+        path: "/tools/astra/databases",
+        icon: DatabaseIcon,
+      },
     ],
   },
   {

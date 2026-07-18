@@ -1,4 +1,4 @@
-import { apiGet } from "@/lib/api-client"
+import { apiGet, apiPost } from "@/lib/api-client"
 
 export type AstraAiUsageResponse = {
   tenantId: string
@@ -177,6 +177,33 @@ export type AstraAccountDetailsResponse = {
   subscriptionUuid: string | null
 }
 
+export type AstraOwnershipLookupResponse = {
+  tenantId: string
+  found: boolean
+  message: string
+  clientName: string | null
+  ownerEmail: string | null
+  ownerName: string | null
+  ownerAccountId: string | null
+  members: Array<{
+    accountId: string
+    email: string
+    name: string | null
+    role: string
+  }>
+}
+
+export type AstraChangeOwnershipResponse = {
+  success: true
+  tenantId: string
+  clientName: string | null
+  previousOwnerEmail: string | null
+  newOwnerEmail: string
+  invited: boolean
+  inviteStatus: string | null
+  message: string
+}
+
 export const astraService = {
   getAiUsage: (tenantId: string) =>
     apiGet<AstraAiUsageResponse>("/api/astra/aiUsage", { tenantId }),
@@ -194,6 +221,15 @@ export const astraService = {
     apiGet<AstraAccountDetailsResponse>("/api/astra/accountDetails", {
       tenantId,
     }),
+
+  lookupOwnership: (tenantId: string) =>
+    apiGet<AstraOwnershipLookupResponse>("/api/astra/ownership", { tenantId }),
+
+  changeOwnership: (params: { tenantId: string; newOwnerEmail: string }) =>
+    apiPost<AstraChangeOwnershipResponse>(
+      "/api/astra/changeOwnership",
+      params,
+    ),
 
   listDatabases: () =>
     apiGet<AstraDatabaseStatusResponse>("/api/astra/databases"),

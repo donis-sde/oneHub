@@ -40,6 +40,7 @@ import {
   RegisterCloudApiPage,
   StopBroadcastPage,
   StopBroadcastRetriesPage,
+  TeamInboxReportPage,
   UsageCalculatorPage,
   WabaBusinessIdPage,
   WabaCoexSyncPage,
@@ -153,6 +154,10 @@ export function AppRoutes() {
                 <Route path="tools/manage-subscription" element={<ManageSubscriptionPage />} />
                 <Route path="tools/mps-management" element={<MpsManagementPage />} />
                 <Route path="tools/frt" element={<FrtReportPage />} />
+                <Route
+                  path="tools/team-inbox-report"
+                  element={<TeamInboxReportPage />}
+                />
                 <Route path="tools/api-explorer" element={<ApiExplorerPage />} />
                 <Route path="tools/delete-contacts" element={<DeleteContactsPage />} />
                 <Route path="tools/delete-hubspot" element={<DeleteHubspotPage />} />

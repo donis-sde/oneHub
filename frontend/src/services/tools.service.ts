@@ -132,6 +132,26 @@ export const frtService = {
     apiGet<Record<string, unknown>>("/api/frt/validateTenantId", { tenantId }),
 }
 
+export type TeamInboxReportResponse = {
+  filename: string
+  contentType: string
+  csv: string
+  clientId: string
+  timezone: string
+  from: string
+  to: string
+}
+
+export const teamInboxReportService = {
+  export: (body: {
+    clientId: string
+    bearerToken: string
+    fromDate: string
+    toDate: string
+    timezone: string
+  }) => apiPost<TeamInboxReportResponse>("/api/teamInboxReport", body),
+}
+
 export const apiExplorerService = {
   execute: (body: { method: string; url: string; headers?: Record<string, string>; body?: string }) =>
     apiPost<{

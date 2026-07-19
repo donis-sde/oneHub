@@ -45,6 +45,7 @@ import {
 } from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { AssignWabaUserForm } from "@/components/shared/assign-waba-user-form"
+import { TeamInboxReportForm } from "@/components/shared/team-inbox-report-form"
 import { DUMMY_ACCESS_TO_WABA_USERS, PLATFORM_DEMO_PASSWORD } from "@/config/platform-users"
 import type { BackofficeLogKey } from "@/services/tools.service"
 
@@ -686,6 +687,17 @@ export function FrtReportPage() {
         ]}
         onSubmit={(v) => frtService.report(v)}
       />
+    </ToolPageShell>
+  )
+}
+
+export function TeamInboxReportPage() {
+  return (
+    <ToolPageShell
+      title="Team Inbox Report"
+      description="Export tickets CSV from the WATI Team Inbox dashboard API"
+    >
+      <TeamInboxReportForm />
     </ToolPageShell>
   )
 }
